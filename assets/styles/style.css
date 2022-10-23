@@ -1,6 +1,13 @@
 * {
     box-sizing: border-box;
   }
+
+  blockquote {
+    border-left: 2px solid #272626;
+    margin-left: 0;
+    padding: 0.1px 18px;
+    background: #fbfbfb;
+  }
   
   /* Create two equal columns that floats next to each other */
   .column {
