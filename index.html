@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"></script>
+    <link rel="stylesheet" href="assets/styles/style.css">
+    <script src="assets/js/scripts.js"></script>
+</head>
+<body>
+    <div>
+        <div class="row">
+            <div class="column sm-column">
+                <h2>Column 1</h2>
+                <div class="container">
+                      <label for="fname">Project Name</label>
+                      <input type="text" id="project_name" name="project_name" 
+                      placeholder="Project Name">
+                  
+                      <label for="lname">Repository URL</label>
+                      <input type="text" id="repo_url" name="repo_url" 
+                      placeholder="https://github.com/username/project-name">
+                      
+                      <label for="lname">Documentation URL</label>
+                      <input type="text" id="doc_url" name="doc_url" 
+                      placeholder="https://documentation.io">
+                      
+                      <!-- Contributing Options -->
+                      <p>CONTRIBUTING.md Options</p>
+                      
+                      <label for="lname">Security E-mail?</label>
+                      <input type="email" id="security_email" name="security_email" 
+                      placeholder="security@mail.com">
+                      
+                      <!-- Code_of_conduct Options -->
+                      <p>CONTRIBUTING.md Options</p>
+                      
+                      <label for="lname">Enforcement E-mail?</label>
+                      <input type="email" id="enforcement_email" name="security_email" 
+                      placeholder="enforcement@email.com">
+
+                      <button id="submit-form" onclick="submitForm()">Submit</button>
+                  </div>
+            </div>
+            <div class="column">
+                <h2>CONTRIBUTING.md <input type="checkbox" onclick="generateContributingMDContent(this)"></h2> 
+
+                <div id="contributing" class="html-view"></div>
+            </div>
+            <div class="column">
+                <h2>CODE_OF_CONDUCT.md <input type="checkbox" onclick="generateCodeOfConductMDContent(this)"></h2> 
+                
+                <div id="code_of_conduct" class="html-view"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        generateContributingFileContent();
+        generateCodeOfConductFileContent();
+    </script>
+</body>
+</html>
