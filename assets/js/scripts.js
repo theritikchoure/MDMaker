@@ -108,6 +108,20 @@ let submitForm = () => {
     generateCodeOfConductFileContent();
 }
 
+let resetForm = () => {
+    let pname = document.getElementById('project_name');
+    let repourl = document.getElementById('repo_url');
+    let docurl = document.getElementById('doc_url');
+    let securityemail = document.getElementById('security_email');
+    let enforcementemail = document.getElementById('enforcement_email');
+
+    pname.value = '';
+    repourl.value = '';
+    docurl.value = '';
+    securityemail.value = '';
+    enforcementemail.value = '';
+}
+
 let generateContributingMDContent = (e) => {
     let div = document.getElementById('contributing');
     if (e.checked) {

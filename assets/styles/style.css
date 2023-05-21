@@ -150,6 +150,18 @@ textarea {
   background-color: #45a049;
 }
 
+#reset-form {
+  background-color: transparent;
+  border: 1px solid #04AA6D;
+  color: #04AA6D;
+  padding: 12px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 15px;
+}
+
+
 #contributing,
 #code_of_conduct {
   overflow: auto;
