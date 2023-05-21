@@ -12,7 +12,8 @@ Welcome to MDmaker, the hassle-free solution for generating high-quality contrib
 ## Demo
 
 <p align="center">
-  <video src="./assets/images/demo.mp4" alt="MDmaker Logo">
+  <video width="630" height="300" src="./assets/images/demo.mp4"></video>
+
 </p>
 
 ## Contributing
