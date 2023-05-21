@@ -92,7 +92,7 @@ let submitForm = () => {
     let enforcementemail = document.getElementById('enforcement_email');
 
     if (validateInput()) {
-        showToast("Validation error, please fill complete form"); 
+        showToast("Validation error, please fill complete form", 'error'); 
         return;
     } 
 
