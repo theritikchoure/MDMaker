@@ -8,12 +8,93 @@ let options = {
     project_name, repo_url, doc_url, security_email, enforcement_email
 }
 
-let submitForm = () => {
+let validationMessage = (msg, msgType = null) => {
+    let verror = document.createElement("p");
+    verror.innerHTML = msg;
+    verror.classList.add("v-error");
+    verror.classList.add(msgType);
+    return verror;
+}
+
+let removeValidationMessage = () => {
+    let elements = document.querySelectorAll(".v-error");
+    [].forEach.call(elements, function(el) {
+        console.log("first")
+        el.remove();
+      });
+}
+
+let validateInput = () => {
     let pname = document.getElementById('project_name');
     let repourl = document.getElementById('repo_url');
     let docurl = document.getElementById('doc_url');
     let securityemail = document.getElementById('security_email');
     let enforcementemail = document.getElementById('enforcement_email');
+    let errors = {};
+
+    if (!pname.value.toLowerCase()) {
+        pname.classList.add('error');
+        errors.project_name = true;
+        // pname.parentNode.insertBefore(validationMessage("please add a project name", 'pname'), pname.nextSibling);
+    } else {
+        pname.classList.remove('error');
+        // (document.getElementsByClassName('.pname')).remove();
+        delete errors?.project_name;
+    }
+
+    if (!repourl.value.toLowerCase()) {
+        repourl.classList.add('error');
+        errors.repo_url = true;
+        // repourl.parentNode.insertBefore(validationMessage("Please add repository url", 'repourl'), repourl.nextSibling);
+    } else {
+        repourl.classList.remove('error');
+        // (document.getElementsByClassName('.repourl')).remove();
+        delete errors?.repo_url;
+    }
+
+    if (!docurl.value.toLowerCase()) {
+        docurl.classList.add('error');
+        errors.doc_url = true;
+        // docurl.parentNode.insertBefore(validationMessage("Please add documentation url", 'docurl'), docurl.nextSibling);
+    } else {
+        docurl.classList.remove('error');
+        // (document.getElementsByClassName('.docurl')).remove();
+        delete errors?.doc_url;
+    }
+
+    // if (!securityemail.value.toLowerCase()) {
+    //     securityemail.classList.add('error');
+    //     errors.security_email = "please add a documentation url";
+    // } else {
+    //     securityemail.classList.remove('error');
+    //     delete errors?.security_email;
+    // }
+
+    // if (!enforcementemail.value.toLowerCase()) {
+    //     enforcementemail.classList.add('error');
+    //     errors.enforcement_email = "please add a documentation url";
+    // } else {
+    //     enforcementemail.classList.remove('error');
+    //     delete errors?.enforcement_email;
+    // }
+
+    return Object.keys(errors).length !== 0;
+}
+
+let submitForm = () => {
+
+    removeValidationMessage();
+
+    let pname = document.getElementById('project_name');
+    let repourl = document.getElementById('repo_url');
+    let docurl = document.getElementById('doc_url');
+    let securityemail = document.getElementById('security_email');
+    let enforcementemail = document.getElementById('enforcement_email');
+
+    if (validateInput()) {
+        showToast("Validation error, please fill complete form"); 
+        return;
+    } 
 
     options = {
         project_name: pname.value,
@@ -24,11 +105,12 @@ let submitForm = () => {
     }
 
     generateContributingFileContent();
+    generateCodeOfConductFileContent();
 }
 
 let generateContributingMDContent = (e) => {
     let div = document.getElementById('contributing');
-    if(e.checked) {
+    if (e.checked) {
         let msg = contributingFileMDContent();
         div.innerHTML = msg;
         div.classList.add('markdown-view');
@@ -42,7 +124,7 @@ let generateContributingMDContent = (e) => {
 
 let generateCodeOfConductMDContent = (e) => {
     let div = document.getElementById('code_of_conduct');
-    if(e.checked) {
+    if (e.checked) {
         let msg = codeOfConductFileMDContent();
         div.innerHTML = msg;
         div.classList.add('markdown-view');
@@ -297,7 +379,7 @@ This template is based on the **contributing-gen**. [Make your own](https://gith
 }
 
 let generateCodeOfConductFileContent = () => {
-    let msg = codeOfConductFileHtmlContent();
+    let msg = codeOfConductFileHtmlContent(options);
 
     let md = new markdownit()
 
@@ -306,19 +388,19 @@ let generateCodeOfConductFileContent = () => {
     document.getElementById('code_of_conduct').innerHTML = htmlContent;
 }
 
-let codeOfConductFileHtmlContent = () => {
-let content = `
+let codeOfConductFileHtmlContent = (options) => {
+    let content = `
 # Code of Conduct
 
 > A code of conduct is a set of rules outlining the social norms and rules and responsibilities of, or proper practices for, an individual, party or organization
 
 ## Summary
 
-The {NAME} is dedicated to providing a harassment-free working environment for all, regardless of gender, sexual orientation, disability, physical appearance, body size, race, or religion. We do not tolerate harassment of any form. All communication should be appropriate for a professional audience including people of many different backgrounds. 
+The ${options.project_name} is dedicated to providing a harassment-free working environment for all, regardless of gender, sexual orientation, disability, physical appearance, body size, race, or religion. We do not tolerate harassment of any form. All communication should be appropriate for a professional audience including people of many different backgrounds. 
 
-Sexual language and imagery is not appropriate for any communication and/or talks. Be kind and do not insult or put down others. Behave professionally. Remember that harassment and sexist, racist, or exclusionary jokes are not appropriate for {NAME}. Staff violating these rules should be reported to an appropriate line manager.
+Sexual language and imagery is not appropriate for any communication and/or talks. Be kind and do not insult or put down others. Behave professionally. Remember that harassment and sexist, racist, or exclusionary jokes are not appropriate for ${options.project_name}. Staff violating these rules should be reported to an appropriate line manager.
 
-These are the values to which people in the {NAME} community should aspire:
+These are the values to which people in the ${options.project_name} community should aspire:
 
 - Be friendly and welcoming
 - Be patient
@@ -342,7 +424,7 @@ People are complicated. You should expect to be misunderstood and to misundersta
 
 ## Reporting an incident
 
-Incidents that violate the Code of Conduct are extremely damaging to the {NAME}, and they will not be tolerated. The silver lining is that, in many cases, these incidents present a chance for the offenders, and the teams at large, to grow, learn, and become better. 
+Incidents that violate the Code of Conduct are extremely damaging to the ${options.project_name}, and they will not be tolerated. The silver lining is that, in many cases, these incidents present a chance for the offenders, and the teams at large, to grow, learn, and become better. 
 
 > The following should be handled by a line manager who has been informed of the incident
 
@@ -387,7 +469,7 @@ Some things for the staff to consider when dealing with Code of Conduct offender
 - Requiring that the harasser avoid any interaction with, and physical proximity to, their victim until a resolution or course of action has been decided upon
 - Requiring that the harasser not volunteer for future events your organisation runs (either indefinitely or for a certain time period)
 - Depending on the severity/details of the incident, requiring that the harasser immediately be sent home
-- Depending on the severity/details of the incident, removing a harasser from membership of relevant {NAME} organisations
+- Depending on the severity/details of the incident, removing a harasser from membership of relevant ${options.project_name} organisations
 - Depending on the severity/details of the incident, publishing an account of the harassment and calling for the resignation of the harasser from their responsibilities (usually pursued by people without formal authority: may be called for if the harasser is a team leader, or refuses to stand aside from the conflict of interest)
 
 Give accused staff members a place to appeal to if there is one, but in the meantime the report stands. Keep in mind that it is not a good idea to encourage an apology from the harasser.
@@ -403,22 +485,22 @@ If some members of staff were angered by the incident, it is best to apologise t
 This Code of Conduct was adapted from both [Golang](https://golang.org/conduct) and the [Golang UK Conference](http://golanguk.com/conduct/).
 `;
 
-return content;
+    return content;
 }
 
 let codeOfConductFileMDContent = () => {
-let content = `
+    let content = `
 # Code of Conduct<br/><br/>
 
 > A code of conduct is a set of rules outlining the social norms and rules and responsibilities of, or proper practices for, an individual, party or organization.<br/><br/>
 
 ## Summary<br/><br/>
 
-The {NAME} is dedicated to providing a harassment-free working environment for all, regardless of gender, sexual orientation, disability, physical appearance, body size, race, or religion. We do not tolerate harassment of any form. All communication should be appropriate for a professional audience including people of many different backgrounds. <br/><br/>
+The ${options.project_name} is dedicated to providing a harassment-free working environment for all, regardless of gender, sexual orientation, disability, physical appearance, body size, race, or religion. We do not tolerate harassment of any form. All communication should be appropriate for a professional audience including people of many different backgrounds. <br/><br/>
 
-Sexual language and imagery is not appropriate for any communication and/or talks. Be kind and do not insult or put down others. Behave professionally. Remember that harassment and sexist, racist, or exclusionary jokes are not appropriate for {NAME}. Staff violating these rules should be reported to an appropriate line manager.<br/><br/>
+Sexual language and imagery is not appropriate for any communication and/or talks. Be kind and do not insult or put down others. Behave professionally. Remember that harassment and sexist, racist, or exclusionary jokes are not appropriate for ${options.project_name}. Staff violating these rules should be reported to an appropriate line manager.<br/><br/>
 
-These are the values to which people in the {NAME} community should aspire:<br/><br/>
+These are the values to which people in the ${options.project_name} community should aspire:<br/><br/>
 
 - Be friendly and welcoming<br/><br/>
 - Be patient<br/><br/>
@@ -442,7 +524,7 @@ People are complicated. You should expect to be misunderstood and to misundersta
 
 ## Reporting an incident<br/><br/>
 
-Incidents that violate the Code of Conduct are extremely damaging to the {NAME}, and they will not be tolerated. The silver lining is that, in many cases, these incidents present a chance for the offenders, and the teams at large, to grow, learn, and become better. <br/><br/>
+Incidents that violate the Code of Conduct are extremely damaging to the ${options.project_name}, and they will not be tolerated. The silver lining is that, in many cases, these incidents present a chance for the offenders, and the teams at large, to grow, learn, and become better. <br/><br/>
 
 > The following should be handled by a line manager who has been informed of the incident<br/><br/>
 
@@ -487,7 +569,7 @@ Some things for the staff to consider when dealing with Code of Conduct offender
 - Requiring that the harasser avoid any interaction with, and physical proximity to, their victim until a resolution or course of action has been decided upon<br/><br/>
 - Requiring that the harasser not volunteer for future events your organisation runs (either indefinitely or for a certain time period)<br/><br/>
 - Depending on the severity/details of the incident, requiring that the harasser immediately be sent home<br/><br/>
-- Depending on the severity/details of the incident, removing a harasser from membership of relevant {NAME} organisations<br/><br/>
+- Depending on the severity/details of the incident, removing a harasser from membership of relevant ${options.project_name} organisations<br/><br/>
 - Depending on the severity/details of the incident, publishing an account of the harassment and calling for the resignation of the harasser from their responsibilities (usually pursued by people without formal authority: may be called for if the harasser is a team leader, or refuses to stand aside from the conflict of interest)<br/><br/>
 
 Give accused staff members a place to appeal to if there is one, but in the meantime the report stands. Keep in mind that it is not a good idea to encourage an apology from the harasser.<br/><br/>
@@ -503,5 +585,5 @@ If some members of staff were angered by the incident, it is best to apologise t
 This Code of Conduct was adapted from both [Golang](https://golang.org/conduct) and the [Golang UK Conference](http://golanguk.com/conduct/).<br/><br/>
 `;
 
-return content;
+    return content;
 }
