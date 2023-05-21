@@ -12,7 +12,11 @@ Welcome to MDmaker, the hassle-free solution for generating high-quality contrib
 ## Demo
 
 <p align="center">
-  <video width="630" height="300" src="./assets/images/demo.mp4"></video>
+  
+
+https://github.com/theritikchoure/MDMaker/assets/56495602/02160356-8424-4f8b-8ed9-195b843a5454
+
+
 
 </p>
 
