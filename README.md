@@ -1,3 +1,5 @@
+![MDMaker Banner](./assets/images/banner.png)
+
 # MDMaker
 
 Welcome to MDmaker, the hassle-free solution for generating high-quality contributing.md and code_of_conduct.md files for your projects. Say goodbye to manual creation and let MDmaker streamline your documentation process with its intuitive interface and customizable templates.
