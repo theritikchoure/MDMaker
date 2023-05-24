@@ -25,8 +25,12 @@
 <body>
     <header class="header">
         <h1 class="logo">MD-Maker</h1>
-
-        <i id="theme-toggle" class="fa fa-sun" onclick="themeToggle()"></i>
+        <ul class="main-nav">
+            <!-- <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li> -->
+            <li><a href="javascript:void(0)" onclick="openNav()">Demo</a></li>
+            <li><i id="theme-toggle" class="fa fa-sun" onclick="themeToggle()"></i></li>
+        </ul>
     </header>
 
     <div class="main">
@@ -51,7 +55,7 @@
                     <input type="email" id="security_email" name="security_email" placeholder="security@mail.com">
 
                     <!-- Code_of_conduct Options -->
-                    <p>CONTRIBUTING.md Options</p>
+                    <p>CODE_OF_CONDUCT.md Options</p>
 
                     <label for="lname">Enforcement E-mail?</label>
                     <input type="email" id="enforcement_email" name="security_email"
@@ -65,7 +69,14 @@
                 <h2 class="text-2xl">CONTRIBUTING.md
 
                     <input type="checkbox" onclick="generateContributingMDContent(this)">
-                    <i class="fa fa-light fa-clipboard pointer-cursor" onclick="copyContributeMDContent()"></i>
+                    <i class="fa fa-light fa-clipboard fs-17px pointer-cursor tooltip"
+                        onclick="copyContributeMDContent()">
+                        <span class="tooltiptext">Copy content</span>
+                    </i>
+                    <i class="fa fa-light fa-download fs-17px pointer-cursor tooltip"
+                        onclick="downloadContributeMDContent()">
+                        <span class="tooltiptext">Download file</span>
+                    </i>
                 </h2>
 
                 <div id="contributing" class="html-view"></div>
@@ -73,7 +84,12 @@
             <div class="column">
                 <h2 class="text-2xl">CODE_OF_CONDUCT.md
                     <input type="checkbox" onclick="generateCodeOfConductMDContent(this)">
-                    <i class="fa fa-light fa-clipboard pointer-cursor" onclick="copyCOCMDContent()"></i>
+                    <i class="fa fa-light fa-clipboard fs-17px pointer-cursor tooltip" onclick="copyCOCMDContent()">
+                        <span class="tooltiptext">Copy content</span>
+                    </i>
+                    <i class="fa fa-light fa-download fs-17px pointer-cursor tooltip" onclick="downloadCOCMDContent()">
+                        <span class="tooltiptext">Download file</span>
+                    </i>
                 </h2>
 
                 <div id="code_of_conduct" class="html-view"></div>
@@ -97,13 +113,32 @@
         </div>
     </div>
 
+    <!-- Demo Overlay Start -->
+    <div id="myNav" class="overlay">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="overlay-content">
+            <video controls height="60%"
+                src="https://github-production-user-asset-6210df.s3.amazonaws.com/56495602/239737734-02160356-8424-4f8b-8ed9-195b843a5454.mp4"
+                width="100%"></video>
+        </div>
+    </div>
+    <!-- Demo Overlay End -->
     <script>
         generateContributingFileContent();
         generateCodeOfConductFileContent();
     </script>
 
-    <script src="assets/js/helper.js"></script>
+    <script>
+        function openNav() {
+            document.getElementById("myNav").style.height = "100%";
+        }
 
+        function closeNav() {
+            document.getElementById("myNav").style.height = "0%";
+        }
+    </script>
+
+    <script src="assets/js/helper.js"></script>
 </body>
 
 </html>

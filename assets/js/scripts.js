@@ -3,7 +3,7 @@ let repo_url = "https://github.com/username/project-name";
 let doc_url = "https://documentation.io";
 let security_email = "security@example.com";
 let enforcement_email = "enforcement@example.com";
-
+let formSubmitted = false;
 let options = {
     project_name, repo_url, doc_url, security_email, enforcement_email
 }
@@ -103,6 +103,8 @@ let submitForm = () => {
         security_email: securityemail.value,
         enforcement_email: enforcementemail.value,
     }
+
+    formSubmitted = true;
 
     generateContributingFileContent();
     generateCodeOfConductFileContent();
@@ -274,7 +276,7 @@ Enhancement suggestions are tracked as [GitHub issues](${options.repo_url}/issue
 
 
 ## Attribution
-This template is based on the **contributing-gen**. [Make your own](https://github.com/bttger/contributing-gen)!
+This CONTRIBUTING.md is generated from [MDMaker](https://github.com/theritikchoure/MDMaker)!
     `;
 
     return content;
@@ -386,7 +388,7 @@ Enhancement suggestions are tracked as [GitHub issues](${options.repo_url}/issue
 - **Explain why this enhancement would be useful** to most ${options.project_name} users. You may also want to point out the other projects that solved it better and which could serve as inspiration.<br/><br/>
 
 ## Attribution<br/><br/>
-This template is based on the **contributing-gen**. [Make your own](https://github.com/bttger/contributing-gen)!<br/><br/>
+This CONTRIBUTING.md is generated from **[MDMaker]**(https://github.com/theritikchoure/MDMaker)!<br/><br/>
     `;
 
     return content;
@@ -495,9 +497,7 @@ Depending on the incident, the head of responsible department, or designate, may
 If some members of staff were angered by the incident, it is best to apologise to them that the incident occurred to begin with. If there are residual hard feelings, suggest to them to write an email to the responsible head of department. It will be dealt with accordingly.
 
 ## Attribution
-
-This Code of Conduct was adapted from both [Golang](https://golang.org/conduct) and the [Golang UK Conference](http://golanguk.com/conduct/).
-`;
+This CODE_OF_CONDUCT.md is generated from [MDMaker](https://github.com/theritikchoure/MDMaker)!`;
 
     return content;
 }
@@ -595,9 +595,7 @@ Depending on the incident, the head of responsible department, or designate, may
 If some members of staff were angered by the incident, it is best to apologise to them that the incident occurred to begin with. If there are residual hard feelings, suggest to them to write an email to the responsible head of department. It will be dealt with accordingly.<br/><br/>
 
 ## Attribution<br/><br/>
-
-This Code of Conduct was adapted from both [Golang](https://golang.org/conduct) and the [Golang UK Conference](http://golanguk.com/conduct/).<br/><br/>
-`;
+This CODE_OF_CONDUCT.md is generated from [MDMaker](https://github.com/theritikchoure/MDMaker)!`;
 
     return content;
 }

@@ -23,24 +23,68 @@ function showToast(message, messageType) {
 }
 
 async function copyContributeMDContent() {
-    let copyText = document.getElementById("contributing");
+    if(!formSubmitted) {
+        showToast("First fill the form and generate file content", 'error');
+        return;
+    }
+
+    let msg = contributingFileHtmlContent(options);
 
     // Copy the text inside the text field
-    await navigator.clipboard.writeText(copyText.textContent);
+    await navigator.clipboard.writeText(msg);
 
     // Alert the copied text
     showToast("CONTRIBUTING.md markdown content copied", 'success'); 
 }
 
 async function copyCOCMDContent() {
-    let copyText = document.getElementById("code_of_conduct");
+    if(!formSubmitted) {
+        showToast("First fill the form and generate file content", 'error');
+        return;
+    }
+    let msg = codeOfConductFileHtmlContent(options);
 
     // Copy the text inside the text field
-    await navigator.clipboard.writeText(copyText.textContent);
+    await navigator.clipboard.writeText(msg);
 
     // Alert the copied text
     showToast("CODE_OF_CONDUCT.md markdown content copied", 'success');
 }
+
+async function downloadContributeMDContent() {
+    if(!formSubmitted) {
+        showToast("First fill the form and generate file content", 'error');
+        return;
+    }
+    let msg = contributingFileHtmlContent(options);
+    let dataStr = "data:text/text;charset=utf-8," + encodeURIComponent(msg);
+    let downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", "CONTRIBUTING.md");
+    document.body.appendChild(downloadAnchorNode); // required for firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+    showToast("CONTRIBUTING.md file successfully downloaded", 'success');
+    return;
+}
+
+async function downloadCOCMDContent() {
+    if(!formSubmitted) {
+        showToast("First fill the form and generate file content", 'error');
+        return;
+    }
+    let msg = codeOfConductFileHtmlContent(options);
+    let dataStr = "data:text/text;charset=utf-8," + encodeURIComponent(msg);
+    let downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", "CODE_OF_CONDUCT.md");
+    document.body.appendChild(downloadAnchorNode); // required for firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+    showToast("CODE_OF_CONDUCT.md file successfully downloaded", 'success');
+    return;
+}
+
 
 function themeToggle() {
     // Toggle the theme class on the root element
